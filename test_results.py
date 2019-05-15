@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import re
 import pyximport
 pyximport.install()
 from utils import min_dist
@@ -11,6 +12,7 @@ if len(sys.argv) < 2:
     sys.exit()
 
 
+low_complexity = re.compile('A+|C+|T+|G+')
 '''
 for each file,
 count distinct barcode,
@@ -26,9 +28,12 @@ for f in sys.argv[1:]:
 
     # test barcode distance
     min_distance = 1000
+    max_homopolymer = 0
     for barcode in barcode_set:
         min_distance = min(min_distance, min_dist(barcode, barcode_set))
+        max_homopolymer = max(max_homopolymer, max(map(len, low_complexity.findall(barcode))))
 
-    print('%s: %i barcodes with a minimum hamming distance of %i' \
-            %(f, len(barcode_set), min_distance))
+    print('%s: %i barcodes with a minimum hamming distance of %i '\
+            'with a longest of %i nucleotide run' \
+            %(f, len(barcode_set), min_distance, max_homopolymer))
 

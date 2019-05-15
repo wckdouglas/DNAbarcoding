@@ -12,11 +12,11 @@ import argparse
 
 
 def getopt():
-    parser = argparse.ArgumentParser(description = 'This program generates sets of barcodes')
-    parser.add_argument('-n', '--nucleotides', type=int, default=6,  help = 'Number of nucleotide per barcode')
-    parser.add_argument('-e','--edit_distance', default=3, type=int, help = 'Minimum edit distance between barcodes')
-    parser.add_argument('--n_barcodes', default=96, type=int, help = 'Number of barcodes per set')
-    parser.add_argument('--n_sets',default=1, type=int, help = 'Number of barcode sets to generate')
+    parser = argparse.ArgumentParser(description = 'This program generates sets of barcodes with a given minumum edit distance')
+    parser.add_argument('-n', '--nucleotides', type=int, default=6,  help = 'Number of nucleotide per barcode (default: 6)')
+    parser.add_argument('-e','--edit_distance', default=3, type=int, help = 'Minimum edit distance between barcodes (default: 3)')
+    parser.add_argument('--n_barcodes', default=96, type=int, help = 'Number of barcodes per set (default: 96)')
+    parser.add_argument('--n_sets',default=1, type=int, help = 'Number of barcode sets to generate (default: 1)')
     parser.add_argument('-o','--outprefix', default='barcode', help = 'Barcode list prefix, output file would be: '\
                                                                         '{prefix}_1.txt, {prefix}_2.txt for different barcode set '\
                                                                         '(default: barcode)')

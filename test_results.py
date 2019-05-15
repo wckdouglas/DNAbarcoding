@@ -9,6 +9,7 @@ from utils import min_dist
 if len(sys.argv) < 2:
     print('[usage] python %s <barcode list 1> [barcode list 2] ... ' %(sys.argv[0]), file=sys.stderr) 
     print('example: python %s list1 list2 list3' %(sys.argv[0]), file=sys.stderr)
+    print('Each list contain one barcode at each line')
     sys.exit()
 
 

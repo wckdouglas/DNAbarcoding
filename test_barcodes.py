@@ -6,6 +6,7 @@ import re
 import pyximport
 pyximport.install()
 from utils import min_dist
+low_complexity = re.compile('A+|C+|T+|G+')
 
 if len(sys.argv) < 2:
     print('[usage] python %s <barcode list 1> [barcode list 2] ... ' %(sys.argv[0]), file=sys.stderr) 
@@ -14,13 +15,7 @@ if len(sys.argv) < 2:
     sys.exit()
 
 
-low_complexity = re.compile('A+|C+|T+|G+')
-'''
-for each file,
-count distinct barcode,
-calculate minimum edit distance
-'''
-for f in sys.argv[1:]:
+def test_barcode_file(f):
     barcode_set = set()
     with open(f) as infile:
         for line in infile:
@@ -38,4 +33,13 @@ for f in sys.argv[1:]:
     print('%s: %i barcodes with a minimum hamming distance of %i '\
             'with a longest of %i nucleotide run' \
             %(f, len(barcode_set), min_distance, max_homopolymer))
+
+
+'''
+for each file,
+count distinct barcode,
+calculate minimum edit distance
+'''
+for f in sys.argv[1:]:
+    test_barcode_file(f)
 

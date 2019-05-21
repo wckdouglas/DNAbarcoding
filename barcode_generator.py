@@ -87,7 +87,7 @@ class BarcodeGenerator():
 
             accepted_barcodes = accepted_barcodes-set(self.phantom_barcodes)
             self.max = max(self.max, len(accepted_barcodes))
-            if len(accepted_barcodes) >= self.n_barcodes:
+            if len(accepted_barcodes) >= self.n_barcodes and accepted_barcodes not in self.barcode_sets:
                 self.barcode_sets.append(accepted_barcodes)
             
             if len(self.barcode_sets) == self.n_sets:
@@ -123,9 +123,10 @@ class BarcodeGenerator():
                         .format(prefix = outprefix,
                                 file_num = i+1)
             with open(out_file, 'w') as out:
-                for bc in self.print_barcodes(set_number=i):
+                barcodes = self.print_barcodes(set_number=i)
+                for bc in barcodes:
                     print(bc, file=out)
-            print('Written %s' %out_file, file = sys.stderr)
+                print('Written %s' %out_file, file = sys.stderr)
 
 
 def main():
